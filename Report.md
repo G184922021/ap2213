@@ -22,12 +22,59 @@
 
 ## 工夫(苦心)したところ
 
-*
+* 上のパドルにボールが当たった時にスピードを少しずつ上げていくプログラムを組んだ.
+```javascript
+if(Math.abs(ball.position.z - paddle2.position.z) < paddleR + ballR &&
+       Math.abs(ball.position.x - paddle2.position.x) < (paddleL / 2) + ballR){
+        //中央部分と衝突
+        if(ball.position.z > paddle2.position.z){
+          vz = Math.abs(vz);
+          speed = speed + 0.2;
+          count = count + 1;
+          score = score + 100*(count/2);
+        }
+        //右側部分と衝突
+        if(ball.position.x < paddle2.position.x + (paddleL / 2)){
+          vx = Math.abs(vx);
+          speed = speed + 0.2;
+          count = count + 1;
+          score = score + 100*(count/2);
+        }
+        //左側部分と衝突
+        else if(ball.position.x > paddle2.position.x - (paddleL / 2)){
+          vx = -Math.abs(vx);
+          speed = speed + 0.2;
+          count = count + 1;
+          score = score + 100*(count/2);
+        }
+```
 
-*
+*　スコアの加算とライフの表示、gameoverの表示をまとめた.
+```javascript
+    document.getElementById("score").innerText
+    = String(Math.round(score)).padStart(8, "0");
+    score = score + 100*(count/2);
+    document.getElementById("life").innerText
+    = "○○○".substring(0, life);
+    document.getElementById("gameover").innerText
+    = String(Math.round(gameover)).padStart(1, "0");
+```
 
-*
+* パドルを上下であべこべに動作するようにintersects.xを逆にして動作をさかさまにした.
+```javascript
+    if(intersects.x < -offset){
+        intersects.x = -offset;
+      }
+      else if(intersects.x > offset){
+        intersects.x = offset;
+      }
+      paddle.position.x = intersects.x;
+      paddle2.position.x = -intersects.x;
+```
 
-*
+
 
 ## 感想
+課題作成にあたって、アイデアを絞り出す際に一番時間をかけた.
+色々やりたいことはあったが、自分のプログラミングの技量と相談しながら作成したため、自分の満足度は低い形で終わってしまった.
+しかし学べたことも多かったので、次につなげていけるようにしたいと思った.
